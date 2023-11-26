@@ -1,0 +1,45 @@
+---
+- name: Build and Deploy ReactJS App to Docker Hub
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Checkout Repository
+      git:
+        repo: "https://github.com/JuliaKovtun/react_pr.git"
+        dest: "react_pr"
+        version: master
+
+    - name: Set up Node.js
+      community.general.npm:
+        path: react_pr
+
+    - name: Install Dependencies
+      npm:
+        path: react_pr
+        state: present
+
+    - name: Build React App
+      command: npm run build
+      args:
+        chdir: react_pr
+
+    - name: Log in to Docker Hub
+      command: docker login -u juliakovtun -p Kovtun0907051300
+
+    - name: Build  and push Docker Image
+      docker_image:
+        source: build
+        name: juliakovtun/react_pr
+        path: react_pr
+        tag: latest
+        push: true
+
+    - name: Run Docker Container
+      community.general.docker_container:
+        name: run react project
+        image: juliakovtun/react_pr:latest
+        ports:
+          - "8080:80"
+        detach: yes
+
