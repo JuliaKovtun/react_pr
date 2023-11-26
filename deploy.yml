@@ -27,21 +27,9 @@
     - name: Log in to Docker Hub
       command: docker login -u juliakovtun -p Kovtun0907051300
 
-    - name: Build  and push Docker Image
-      docker_image:
-        name: juliakovtun/react_pr
-        source: build
-        build:
-          path: react_pr
-          dockerfile: react_pr/Dockerfile
-        tag: latest
-        push: true
+    - name: Build Docker Image
+      command: docker build -t juliakovtun/react_pr:latest .
 
-    - name: Run Docker Container
-      community.general.docker_container:
-        name: run react project
-        image: juliakovtun/react_pr:latest
-        ports:
-          - "8080:80"
-        detach: yes
+    - name: Push Docker Image to DockerHub
+      command: docker push juliakovtun/react_pr:latest
 
