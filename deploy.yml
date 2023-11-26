@@ -29,9 +29,11 @@
 
     - name: Build  and push Docker Image
       docker_image:
-        source: build
         name: juliakovtun/react_pr
-        path: react_pr
+        source: build
+        build:
+          path: react_pr
+          dockerfile: react_pr/Dockerfile
         tag: latest
         push: true
 
