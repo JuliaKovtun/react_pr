@@ -4,10 +4,7 @@
   gather_facts: false
 
   tasks:
-    - name: Debug
-      debug:
-        var: lookup('env')
-        
+
     - name: Debug 2  
       command: echo DOCKER_PASSWORD $DOCKER_PASSWORD
 
@@ -40,7 +37,7 @@
         chdir: react_pr
 
     - name: Log in to Docker Hub
-      command: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      command: docker login -u "{{ DOCKER_USERNAME }}" -p "{{ DOCKER_PASSWORD }}"
 
     - name: Build Docker Image
       command: docker build -t juliakovtun/react_pr:latest .
