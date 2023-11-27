@@ -8,7 +8,7 @@
 
   tasks:
     - name: Debug
-      debun:
+      debug:
         var: DOCKER_USERNAME
         
     - name: Debug 2  
