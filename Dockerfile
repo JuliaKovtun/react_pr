@@ -1,25 +1,29 @@
-# Dockerfile
-FROM node:14 as builder
+# Use an official Node.js image as a build stage
+FROM node:14 AS builder
 
-WORKDIR /tic-tac-react
+# Set the working directory
+WORKDIR /react_pr
 
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
+# Install dependencies
 RUN npm install
 
+# Copy the rest of the application code
 COPY . .
 
+# Build the React app
 RUN npm run build
 
-# Stage 2 - Production environment
+# Use a smaller base image for the final production image
 FROM nginx:latest
 
-# Копируем статические файлы React.js приложения в каталог Nginx
-COPY --from=builder /tic-tac-react/build /usr/local/etc/nginx/servers/
+# Copy the build artifacts from the builder stage to the nginx web root
+COPY --from=builder /react_pr/build /usr/share/nginx/html
 
-# Копируем конфигурацию Nginx в контейнер
-COPY nginx.conf /usr/local/etc/nginx/
+# Expose port 80 for the running application
+EXPOSE 80
 
-EXPOSE 8000
-
+# Start Nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
