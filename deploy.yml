@@ -25,7 +25,7 @@
         chdir: react_pr
 
     - name: Log in to Docker Hub
-      command: docker login -u juliakovtun -p Kovtun0907051300
+      command: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker Image
       command: docker build -t juliakovtun/react_pr:latest .
