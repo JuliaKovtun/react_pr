@@ -2,6 +2,9 @@
 - name: Build and Deploy ReactJS App to Docker Hub
   hosts: localhost
   gather_facts: false
+  environment:
+    DOCKER_USERNAME: "{{ lookup('env', 'DOCKER_USERNAME') }}"
+    DOCKER_PASSWORD: "{{ lookup('env', 'DOCKER_PASSWORD') }}"
 
   tasks:
     - name: Checkout Repository
@@ -25,7 +28,7 @@
         chdir: react_pr
 
     - name: Log in to Docker Hub
-      command: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      command: docker login -u '{{ DOCKER_USERNAME }}' -p '{{ DOCKER_PASSWORD }}'
 
     - name: Build Docker Image
       command: docker build -t juliakovtun/react_pr:latest .
