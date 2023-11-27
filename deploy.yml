@@ -7,6 +7,11 @@
     DOCKER_PASSWORD: "{{ lookup('env', 'DOCKER_PASSWORD') }}"
 
   tasks:
+    - name: Debug
+      run:  |
+        echo "DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}"
+        echo "DOCKER_PASSWORD: {{ DOCKER_PASSWORD }}"
+      
     - name: Checkout Repository
       git:
         repo: "https://github.com/JuliaKovtun/react_pr.git"
