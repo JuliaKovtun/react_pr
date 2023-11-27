@@ -2,9 +2,6 @@
 - name: Build and Deploy ReactJS App to Docker Hub
   hosts: localhost
   gather_facts: false
-  environment:
-    DOCKER_USERNAME: "{{ lookup('env', 'DOCKER_USERNAME') }}"
-    DOCKER_PASSWORD: "{{ lookup('env', 'DOCKER_PASSWORD') }}"
 
   tasks:
     - name: Debug
@@ -13,6 +10,14 @@
         
     - name: Debug 2  
       command: echo DOCKER_PASSWORD $DOCKER_PASSWORD
+
+    - name: Debug DOCKER_USERNAME
+      debug:
+        var: DOCKER_USERNAME
+
+    - name: Debug DOCKER_PASSWORD
+      debug:
+        var: DOCKER_PASSWORD
       
     - name: Checkout Repository
       git:
