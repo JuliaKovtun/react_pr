@@ -8,10 +8,10 @@
 
   tasks:
     - name: Debug
-      command: echo DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+      command: echo DOCKER_USERNAME: {{ secrets.DOCKER_USERNAME }}
         
     - name: Debug 2  
-      command: echo DOCKER_PASSWORD: "{{ DOCKER_PASSWORD }}"
+      command: echo DOCKER_PASSWORD: $DOCKER_PASSWORD
       
     - name: Checkout Repository
       git:
