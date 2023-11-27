@@ -26,8 +26,6 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y ansible
 
     - name: Run Ansible Playbook
-      run: ansible-playbook deploy.yml
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: ansible-playbook deploy.yml --extra-vars "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" --extra-vars "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}"
+
 
