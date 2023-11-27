@@ -9,7 +9,7 @@
   tasks:
     - name: Debug
       debug:
-        var: DOCKER_USERNAME
+        var: lookup('env')
         
     - name: Debug 2  
       command: echo DOCKER_PASSWORD $DOCKER_PASSWORD
