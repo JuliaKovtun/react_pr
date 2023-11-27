@@ -4,17 +4,6 @@
   gather_facts: false
 
   tasks:
-
-    - name: Debug 2  
-      command: echo DOCKER_PASSWORD $DOCKER_PASSWORD
-
-    - name: Debug DOCKER_USERNAME
-      debug:
-        var: DOCKER_USERNAME
-
-    - name: Debug DOCKER_PASSWORD
-      debug:
-        var: DOCKER_PASSWORD
       
     - name: Checkout Repository
       git:
